@@ -1,0 +1,19 @@
+.lib "models/sky130.lib.spice" tt
+
+xm1 gnd in in gnd sky130_fd_pr__nfet_01v8 W=.65u L=.5u M=1
+xm2 net-_m2-pad1_ in gnd gnd sky130_fd_pr__nfet_01v8 W=.65u L=.5u M=1
+v2 out gnd  dc 15
+* u1  net-_r1-pad2_ in plot_i2
+* u2  net-_m2-pad1_ out plot_i2
+r1  net-_r1-pad1_ net-_r1-pad2_ 300
+v1 net-_r1-pad1_ gnd  dc 20
+v_u1 net-_r1-pad2_ in 0
+v_u2 net-_m2-pad1_ out 0
+.tran 10e-00 100e-00 0e-00
+
+* Control Statements 
+.control
+run
+plot i(v_u1) i(v_u2)
+.endc
+.end
